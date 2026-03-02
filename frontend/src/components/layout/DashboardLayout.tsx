@@ -16,7 +16,7 @@ export default function DashboardLayout() {
   const title = useMemo(() => getTitle(location.pathname), [location.pathname])
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen transition-colors duration-300" style={{ background: 'var(--t-bg)' }}>
       <StarsBackground />
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="relative z-10 lg:pl-[220px]">

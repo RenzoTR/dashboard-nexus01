@@ -5,7 +5,7 @@ from server.api.deps import get_current_user
 from server.core.database import get_db
 from server.db.models import User
 from server.modules.ai_orchestrator.schemas import ChatRequest
-from server.modules.ai_orchestrator.service import get_task, handle_chat, list_messages, list_tasks
+from server.modules.ai_orchestrator.service import delete_messages, get_task, handle_chat, list_messages, list_tasks
 
 router = APIRouter(prefix="/api/ai", tags=["ai_orchestrator"])
 
@@ -26,6 +26,15 @@ def messages(
     current_user: User = Depends(get_current_user),
 ):
     return {"items": list_messages(db, current_user, limit=limit)}
+
+
+@router.delete("/messages")
+def clear_messages(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    count = delete_messages(db, current_user)
+    return {"ok": True, "deleted": count}
 
 
 @router.get("/tasks")

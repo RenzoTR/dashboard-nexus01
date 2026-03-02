@@ -17,8 +17,11 @@ export default function FunnelChart({ data, total }: { data: Stage[]; total: num
   const max = Math.max(...data.map((s) => s.count), 1)
 
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-[#0a0a0a] p-6">
-      <h3 className="mb-6 text-sm font-medium text-[#888888]">Funil de conversão</h3>
+    <div
+      className="rounded-xl p-6 transition-colors duration-300 hover:brightness-105"
+      style={{ background: 'var(--t-surface)', border: '1px solid var(--t-border)' }}
+    >
+      <h3 className="mb-6 text-sm font-medium" style={{ color: 'var(--t-muted)' }}>Funil de conversão</h3>
       <div className="space-y-4">
         {data.map((stage) => {
           const pct = total > 0 ? ((stage.count / total) * 100).toFixed(1) : '0'
@@ -26,12 +29,12 @@ export default function FunnelChart({ data, total }: { data: Stage[]; total: num
           const color = stageColors[stage.stage] || '#666666'
 
           return (
-            <div key={stage.stage}>
+            <div key={stage.stage} className="group rounded-lg p-2 transition-colors" style={{ ['--hover-bg' as string]: 'var(--t-hover-bg)' }}>
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-[13px] text-[#999999]">{stage.stage}</span>
-                <span className="text-[13px] font-medium text-white tabular-nums">
+                <span className="text-[13px]" style={{ color: 'var(--t-muted2)' }}>{stage.stage}</span>
+                <span className="text-[13px] font-medium tabular-nums" style={{ color: 'var(--t-text)' }}>
                   {stage.count}
-                  <span className="ml-1 text-[#999999]">({pct}%)</span>
+                  <span className="ml-1" style={{ color: 'var(--t-muted2)' }}>({pct}%)</span>
                 </span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-white/[0.04]">

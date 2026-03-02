@@ -27,11 +27,15 @@ export default function StatsCards({ stats, leadsThisMonth, onFilter }: Props) {
             onClick={() => {
               if (isClickable) onFilter(key)
             }}
-            className={`group rounded-xl border border-white/[0.06] bg-[#0a0a0a] p-5 text-left transition-colors ${
-              isClickable ? 'cursor-pointer hover:border-white/[0.12]' : 'cursor-default'
+            className={`group rounded-xl p-5 text-left transition-all duration-200 ${
+              isClickable ? 'cursor-pointer hover:scale-[1.02]' : 'cursor-default'
             }`}
+            style={{
+              background: 'var(--t-surface)',
+              border: '1px solid var(--t-border)',
+            }}
           >
-            <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[#999999]">
+            <p className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--t-muted2)' }}>
               {label}
             </p>
             <p
@@ -40,8 +44,9 @@ export default function StatsCards({ stats, leadsThisMonth, onFilter }: Props) {
                   ? 'text-nexus-green'
                   : negative
                     ? 'text-nexus-red'
-                    : 'text-white'
+                    : ''
               }`}
+              style={!positive && !negative ? { color: 'var(--t-text)' } : undefined}
             >
               {value}
             </p>
@@ -51,4 +56,3 @@ export default function StatsCards({ stats, leadsThisMonth, onFilter }: Props) {
     </div>
   )
 }
-

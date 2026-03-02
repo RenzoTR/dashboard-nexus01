@@ -28,13 +28,17 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       ) : null}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[220px] flex-col border-r border-white/[0.06] bg-[#050505] transition-transform duration-200 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-[220px] flex-col transition-all duration-300 lg:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
+        style={{
+          background: 'var(--t-sidebar)',
+          borderRight: '1px solid var(--t-border)',
+        }}
       >
         <div className="flex h-16 flex-col justify-center px-6">
-          <span className="text-base font-bold tracking-tight text-white">LeadManager</span>
-          <span className="text-[9px] font-medium tracking-wider text-[#999999]">Powered by NexusCoding</span>
+          <span className="text-base font-bold tracking-tight" style={{ color: 'var(--t-text)' }}>LeadManager</span>
+          <span className="text-[9px] font-medium tracking-wider" style={{ color: 'var(--t-muted2)' }}>Powered by NexusCoding</span>
         </div>
 
         <nav className="flex-1 px-3 pt-2">
@@ -46,10 +50,14 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
               className={({ isActive }) =>
                 `flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-colors ${
                   isActive
-                    ? 'bg-white/[0.06] text-white'
-                    : 'text-[#999999] hover:text-[#999999]'
+                    ? 'text-white'
+                    : 'hover:opacity-90'
                 }`
               }
+              style={({ isActive }) => ({
+                color: isActive ? 'var(--t-text)' : 'var(--t-muted2)',
+                background: isActive ? 'var(--t-hover-bg)' : undefined,
+              })}
             >
               <Icon className="h-[18px] w-[18px]" />
               <span>{label}</span>
@@ -57,13 +65,14 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           ))}
         </nav>
 
-        <div className="border-t border-white/[0.06] p-3">
+        <div className="p-3" style={{ borderTop: '1px solid var(--t-border)' }}>
           <button
             type="button"
             onClick={() => {
               void logout()
             }}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium text-[#999999] transition-colors hover:text-[#999999]"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-colors hover:text-nexus-red"
+            style={{ color: 'var(--t-muted2)' }}
           >
             <LogOut className="h-[18px] w-[18px]" />
             Sair
@@ -73,4 +82,3 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
     </>
   )
 }
-

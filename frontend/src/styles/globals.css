@@ -26,11 +26,12 @@ body,
 
 body {
   margin: 0;
-  background: #000000;
-  color: #ffffff;
+  background: var(--t-bg, #000000);
+  color: var(--t-text, #ffffff);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background 300ms ease, color 300ms ease;
 }
 
 h1,
@@ -82,29 +83,42 @@ button:focus-visible {
 .input-base {
   width: 100%;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
-  color: #e5e5e5;
+  border: 1px solid var(--t-input-border, rgba(255, 255, 255, 0.1));
+  background: var(--t-input-bg, rgba(255, 255, 255, 0.03));
+  color: var(--t-text, #e5e5e5);
   font-size: 0.875rem;
   padding: 0.55rem 0.75rem;
-  transition: border-color 150ms ease;
+  transition: border-color 150ms ease, background 300ms ease, color 300ms ease;
 }
 
 .input-base::placeholder {
-  color: #777777;
+  color: var(--t-muted3, #777777);
 }
 
 .input-base:focus {
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: var(--t-input-border-focus, rgba(255, 255, 255, 0.25));
 }
 
 select option {
-  background: #1a1a1a;
-  color: #e0e0e0;
+  background: var(--t-select-option-bg, #1a1a1a);
+  color: var(--t-text-secondary, #e0e0e0);
 }
 
 ::selection {
   background: rgba(255, 255, 255, 0.15);
+}
+
+/* Global hover transition for interactive elements */
+button,
+a,
+[role="button"] {
+  transition: all 150ms ease;
+}
+
+button:hover:not(:disabled),
+a:hover,
+[role="button"]:hover {
+  filter: brightness(1.1);
 }
 
 /* Falling stars parallax background */

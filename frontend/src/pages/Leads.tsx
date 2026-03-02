@@ -180,14 +180,15 @@ export default function Leads() {
     <div className="space-y-8 pb-20">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-white">Leads</h1>
-          <p className="mt-1 text-sm text-[#999999]">{total} leads encontrados</p>
+          <h1 className="text-3xl font-semibold tracking-tight" style={{ color: 'var(--t-text)' }}>Leads</h1>
+          <p className="mt-1 text-sm" style={{ color: 'var(--t-muted2)' }}>{total} leads encontrados</p>
         </div>
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => { void reload() }}
-            className="inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3.5 py-2 text-[13px] font-medium text-[#999999] transition hover:border-white/[0.15] hover:text-white"
+            className="inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-[13px] font-medium transition hover:opacity-80"
+            style={{ border: '1px solid var(--t-input-border)', background: 'var(--t-input-bg)', color: 'var(--t-muted2)' }}
           >
             <RefreshCcw className={`h-4 w-4 ${loading || busyAction ? 'animate-spin' : ''}`} />
             Atualizar
@@ -195,7 +196,8 @@ export default function Leads() {
           <button
             type="button"
             onClick={() => { void exportCsv() }}
-            className="inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3.5 py-2 text-[13px] font-medium text-[#999999] transition hover:border-white/[0.15] hover:text-white"
+            className="inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-[13px] font-medium transition hover:opacity-80"
+            style={{ border: '1px solid var(--t-input-border)', background: 'var(--t-input-bg)', color: 'var(--t-muted2)' }}
           >
             <Download className="h-4 w-4" />
             CSV
@@ -210,20 +212,24 @@ export default function Leads() {
             key={pill.value}
             type="button"
             onClick={() => setFilter('status', pill.value)}
-            className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition ${
+            className="rounded-full px-4 py-1.5 text-[13px] font-medium transition"
+            style={
               filters.status === pill.value
-                ? 'bg-white text-black'
-                : 'border border-white/[0.10] text-[#999999] hover:border-white/[0.20] hover:text-white'
-            }`}
+                ? { background: 'var(--t-pill-active-bg)', color: 'var(--t-pill-active-text)' }
+                : { border: '1px solid var(--t-input-border)', color: 'var(--t-muted2)' }
+            }
           >
             {pill.label}
           </button>
         ))}
       </div>
 
-      <div className="rounded-xl border border-white/[0.10] bg-[#0a0a0a] p-5">
+      <div
+        className="rounded-xl p-5 transition-colors duration-300"
+        style={{ background: 'var(--t-surface)', border: '1px solid var(--t-input-border)' }}
+      >
         <div className="mb-4 flex items-center justify-between">
-          <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-[#999999]">
+          <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--t-muted2)' }}>
             Filtros
           </span>
           <button
@@ -232,7 +238,8 @@ export default function Leads() {
               resetFilters()
               setSearchInput('')
             }}
-            className="text-[12px] text-[#999999] transition hover:text-white"
+            className="text-[12px] transition hover:opacity-80"
+            style={{ color: 'var(--t-muted2)' }}
           >
             Limpar
           </button>
@@ -256,14 +263,18 @@ export default function Leads() {
         </div>
 
         <div className="mt-3">
-          <label className="block text-[11px] font-medium uppercase tracking-[0.12em] text-[#999999]">
+          <label className="block text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--t-muted2)' }}>
             Busca
-            <span className="mt-1.5 flex items-center gap-2 rounded-lg border border-white/[0.12] bg-white/[0.04] px-3 py-2.5">
-              <Search className="h-4 w-4 text-[#777777]" />
+            <span
+              className="mt-1.5 flex items-center gap-2 rounded-lg px-3 py-2.5"
+              style={{ border: '1px solid var(--t-input-border)', background: 'var(--t-input-bg)' }}
+            >
+              <Search className="h-4 w-4" style={{ color: 'var(--t-muted3)' }} />
               <input
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="w-full bg-transparent text-sm text-white placeholder-[#777777]"
+                className="w-full bg-transparent text-sm"
+                style={{ color: 'var(--t-text)' }}
                 placeholder="Empresa, email, telefone, cidade..."
               />
             </span>
@@ -278,7 +289,7 @@ export default function Leads() {
       ) : null}
 
       <div className="space-y-3">
-        <p className="text-[11px] text-[#777777]">Deslize horizontalmente para ver todos os campos</p>
+        <p className="text-[11px]" style={{ color: 'var(--t-muted3)' }}>Deslize horizontalmente para ver todos os campos</p>
         <LeadsTable
           leads={leads}
           loading={loading}
@@ -309,23 +320,25 @@ export default function Leads() {
                 type="button"
                 onClick={() => setFilter('page', Math.max(1, filters.page - 1))}
                 disabled={filters.page <= 1}
-                className="inline-flex items-center justify-center rounded-lg border border-white/[0.08] px-2.5 py-1.5 text-[13px] text-[#888888] transition hover:border-white/[0.15] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                className="inline-flex items-center justify-center rounded-lg px-2.5 py-1.5 text-[13px] transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
+                style={{ border: '1px solid var(--t-input-border)', color: 'var(--t-muted)' }}
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
               {paginationPages.map((p, i) =>
                 p === '...' ? (
-                  <span key={`ellipsis-${i}`} className="px-2 text-[13px] text-[#777777]">...</span>
+                  <span key={`ellipsis-${i}`} className="px-2 text-[13px]" style={{ color: 'var(--t-muted3)' }}>...</span>
                 ) : (
                   <button
                     key={p}
                     type="button"
                     onClick={() => setFilter('page', p as number)}
-                    className={`inline-flex h-8 w-8 items-center justify-center rounded-lg text-[13px] font-medium tabular-nums transition ${
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[13px] font-medium tabular-nums transition"
+                    style={
                       filters.page === p
-                        ? 'bg-white text-black'
-                        : 'border border-white/[0.08] text-[#888888] hover:border-white/[0.15] hover:text-white'
-                    }`}
+                        ? { background: 'var(--t-pill-active-bg)', color: 'var(--t-pill-active-text)' }
+                        : { border: '1px solid var(--t-input-border)', color: 'var(--t-muted)' }
+                    }
                   >
                     {p}
                   </button>
@@ -335,18 +348,20 @@ export default function Leads() {
                 type="button"
                 onClick={() => setFilter('page', Math.min(pages, filters.page + 1))}
                 disabled={filters.page >= pages}
-                className="inline-flex items-center justify-center rounded-lg border border-white/[0.08] px-2.5 py-1.5 text-[13px] text-[#888888] transition hover:border-white/[0.15] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                className="inline-flex items-center justify-center rounded-lg px-2.5 py-1.5 text-[13px] transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
+                style={{ border: '1px solid var(--t-input-border)', color: 'var(--t-muted)' }}
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
           ) : null}
           <div className="flex items-center gap-2">
-            <span className="text-[12px] text-[#999999]">Por página:</span>
+            <span className="text-[12px]" style={{ color: 'var(--t-muted2)' }}>Por página:</span>
             <select
               value={filters.per_page}
               onChange={(e) => setFilter('per_page', Number(e.target.value))}
-              className="rounded-lg border border-white/[0.08] bg-black px-2 py-1.5 text-[13px] text-[#cccccc]"
+              className="rounded-lg px-2 py-1.5 text-[13px]"
+              style={{ border: '1px solid var(--t-input-border)', background: 'var(--t-bg)', color: 'var(--t-text-secondary)' }}
             >
               {[25, 50, 100, 200].map((size) => (
                 <option key={size} value={size}>{size}</option>
@@ -364,7 +379,7 @@ export default function Leads() {
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <label className="block text-[11px] font-medium uppercase tracking-[0.12em] text-[#999999]">
+    <label className="block text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--t-muted2)' }}>
       {label}
       <span className="mt-1.5 block">{children}</span>
     </label>

@@ -48,11 +48,11 @@ export default function Dashboard() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-4xl font-semibold tracking-tight text-white">
+        <h1 className="text-4xl font-semibold tracking-tight" style={{ color: 'var(--t-text)' }}>
           LeadManager
         </h1>
-        <p className="mt-1 text-[11px] font-medium tracking-wider text-[#888888]">Powered by NexusCoding</p>
-        <p className="mt-2 text-base text-[#999999]">
+        <p className="mt-1 text-[11px] font-medium tracking-wider" style={{ color: 'var(--t-muted)' }}>Powered by NexusCoding</p>
+        <p className="mt-2 text-base" style={{ color: 'var(--t-muted2)' }}>
           Inteligência operacional para geração de oportunidades.
         </p>
       </div>
@@ -80,4 +80,3 @@ export default function Dashboard() {
     </div>
   )
 }
-

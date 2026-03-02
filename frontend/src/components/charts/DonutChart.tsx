@@ -32,8 +32,11 @@ export default function DonutChart({ segments, total }: Props) {
     })
 
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-[#0a0a0a] p-6">
-      <h3 className="mb-6 text-sm font-medium text-[#888888]">Distribuição de leads</h3>
+    <div
+      className="rounded-xl p-6 transition-colors duration-300 hover:brightness-105"
+      style={{ background: 'var(--t-surface)', border: '1px solid var(--t-border)' }}
+    >
+      <h3 className="mb-6 text-sm font-medium" style={{ color: 'var(--t-muted)' }}>Distribuição de leads</h3>
 
       <div className="flex items-center justify-center gap-10">
         <div className="relative">
@@ -68,8 +71,8 @@ export default function DonutChart({ segments, total }: Props) {
             ))}
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-3xl font-semibold tracking-tight text-white">{total}</span>
-            <span className="text-[11px] text-[#999999]">total</span>
+            <span className="text-3xl font-semibold tracking-tight" style={{ color: 'var(--t-text)' }}>{total}</span>
+            <span className="text-[11px]" style={{ color: 'var(--t-muted2)' }}>total</span>
           </div>
         </div>
 
@@ -81,13 +84,13 @@ export default function DonutChart({ segments, total }: Props) {
                 style={{ backgroundColor: arc.color, opacity: 0.8 }}
               />
               <div>
-                <p className="text-[13px] text-white">
+                <p className="text-[13px]" style={{ color: 'var(--t-text)' }}>
                   {arc.value}
-                  <span className="ml-1 text-[#999999]">
+                  <span className="ml-1" style={{ color: 'var(--t-muted2)' }}>
                     ({(arc.pct * 100).toFixed(0)}%)
                   </span>
                 </p>
-                <p className="text-[11px] text-[#999999]">{arc.label}</p>
+                <p className="text-[11px]" style={{ color: 'var(--t-muted2)' }}>{arc.label}</p>
               </div>
             </div>
           ))}

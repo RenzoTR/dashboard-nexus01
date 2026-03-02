@@ -246,6 +246,16 @@ def _generate_conversational_reply(
 
 
 def handle_chat(db: Session, user: User, message: str, confirm_execution: bool) -> dict:
+    if str(message or "").strip().lower() == "/clear":
+        deleted = delete_messages(db, user)
+        return {
+            "intent": "clear",
+            "requires_confirmation": False,
+            "deleted": deleted,
+            "assistant_message": None,
+            "user_message": None,
+        }
+
     user_message = _save_message(db, user=user, role=MessageRole.user, content=message)
 
     metrics = quick_metrics(db, user)
@@ -594,6 +604,16 @@ def list_tasks(db: Session, user: User, limit: int = 20) -> list[dict]:
         .all()
     )
     return [_task_to_dict(item) for item in rows]
+
+
+def delete_messages(db: Session, user: User) -> int:
+    deleted = (
+        db.query(AIMessage)
+        .filter(AIMessage.user_id == user.id)
+        .delete(synchronize_session=False)
+    )
+    db.commit()
+    return int(deleted)
 
 
 def get_task(db: Session, user: User, task_id: str) -> dict:
